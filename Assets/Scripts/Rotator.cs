@@ -7,12 +7,20 @@ public class Rotator : MonoBehaviour
     [SerializeField][Range(-360, 360)] float angle;
     float speed = 5;
 
+    [SerializeField] bool selfRotation;
+
     void Update()
     {
-        transform.rotation *= Quaternion.AngleAxis(angle * Time.deltaTime, Vector3.up);
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (!selfRotation)
         {
-            transform.position += transform.forward * speed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                transform.position += transform.forward * speed * Time.deltaTime;
+            }
+        }
+        else
+        {
+            transform.rotation *= Quaternion.AngleAxis(angle * Time.deltaTime, Vector3.up);
         }
     }
 }
